@@ -4,7 +4,7 @@ import qrcode
 def generate ():
     with open('personal_data.txt') as f:
         personal_data = f.read()
-    QR_code = qrcode.QRCode(
+        QR_code = qrcode.QRCode(
         version =1,
         error_correction = qrcode.constants.ERROR_CORRECT_L,
         box_size =10,
