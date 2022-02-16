@@ -16,6 +16,7 @@
 
 import cv2
 from pyzbar import pyzbar 
+from datetime import datetime
 
 #Opening the webcam by using opencv
 
@@ -40,8 +41,16 @@ def decode (img):
         cv2.rectangle (img, (left,top), (left + width, top + height), (0,0,255), 4) #this will make a red border
         #utf-8 or Unicode Transformation Format -8 is used for encoding the info from qr code into another file
         Qr_data = info.data.decode ("utf-8")
+
+        #for date and time
+        real_time = datetime.now()
+        current_date = real_time.strftime ("%B/%d/%Y")
+        current_time = real_time.strftime ("%I:%M %p")
+
         with open ("qr_result.txt", "w") as textfile:  #It will automatically open a text file
             textfile.write (Qr_data)                   #Writing the data from qr code to the new text file
+            textfile.write ("Date and Time Record: " + (current_date) + " " + (current_time))
+
     return img
 
 
