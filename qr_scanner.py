@@ -14,27 +14,22 @@
 # 	- Your source code should be in github before Feb 19
 # 	- Create a demo of your program (1-2 min) and send it directly to my messenger.
 
-import webbrowser
 import cv2
 
 #Opening the webcam by using opencv
 
-webcam = cv2.VideoCapture(0)
-detector= cv2.QRCodeDetector()
-
-while True:
+def detect():
+    webcam = cv2.VideoCapture(0)
     _, img = webcam.read()
-    data, _, _ = detector.detectAndDecode (img) #Condition to read the qr code
-    if data:
-        data = 'QRcode.png'
-        break
 
-    cv2.imshow ("QR CODE SCANNER", img)
-    if cv2.waitKey (1) == ord("q"):
-        break
+    while True:
+        _, img = webcam.read()
+        cv2.imshow ("QR CODE SCANNER", img)
+        if cv2.waitKey (1) & 0xFF  == ord("q"):
+            break
+
     webcam.release
-
-cv2.destroyAllWindows()
-b = webbrowser.open(str(data))
+    cv2.destroyAllWindows()
 
 #call the function
+detect()
