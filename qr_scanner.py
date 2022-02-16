@@ -14,30 +14,27 @@
 # 	- Your source code should be in github before Feb 19
 # 	- Create a demo of your program (1-2 min) and send it directly to my messenger.
 
+import webbrowser
 import cv2
-import qrcode
-
-#I decided to generate my own qrcode through python.
-def generate ():
-    with open('personal_data.txt') as f:
-        personal_data= f.read()
-    #personal_data = open('personal_data.txt')
-    QR_code = qrcode.make(personal_data)
-    QR_code.save('QRcode.png')
 
 #Opening the webcam by using opencv
+
 webcam = cv2.VideoCapture(0)
 detector= cv2.QRCodeDetector()
 
 while True:
     _, img = webcam.read()
-    data = detector.detectAndDecode (img) #It is where I will put the condition to read the qr code
+    data, _, _ = detector.detectAndDecode (img) #Condition to read the qr code
+    if data:
+        data = 'QRcode.png'
+        break
 
     cv2.imshow ("QR CODE SCANNER", img)
     if cv2.waitKey (1) == ord("q"):
-       break
+        break
+    webcam.release
 
 cv2.destroyAllWindows()
+b = webbrowser.open(str(data))
 
 #call the function
-generate()
