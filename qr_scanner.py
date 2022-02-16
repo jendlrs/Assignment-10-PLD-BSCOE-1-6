@@ -36,11 +36,14 @@ def detect():
 def decode (img):
     Qr_code = pyzbar.decode(img)
     for info in Qr_code: #This loop is for decoding the qr code
+        left, top, width, height = info.rect #
+        cv2.rectangle (img, (left,top), (left + width, top + height), (0,0,255), 4) #this will make a red border
         #utf-8 or Unicode Transformation Format -8 is used for encoding the info from qr code into another file
         Qr_data = info.data.decode ("utf-8")
         with open ("qr_result.txt", "w") as textfile:  #It will automatically open a text file
             textfile.write (Qr_data)                   #Writing the data from qr code to the new text file
     return img
+
 
 #call the function
 detect()
